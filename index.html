@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>TikTok-система совместного обучения</title>
+<meta name="description" content="Бесплатная обучающая игра: каждая миссия — реальное опубликованное видео. Обучение → практика → обратная связь → измерение → улучшение.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong class="logo">🎬 TikTok-система</strong>
+    <nav>
+      <a href="#loop">Цикл</a><a href="#tree">Навыки</a><a href="#missions">Миссии</a><a href="#modes">День</a><a href="#report">Отчёт</a><a href="#courses">Курсы</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+
+<section class="hero card">
+  <h1>TikTok-система совместного обучения</h1>
+  <p>Это обучающая игра, где <b>каждое действие заканчивается реальным опубликованным видео</b>. Не «посмотрел ещё один курс», а «изучил приём → снял → получил честную обратную связь → посмотрел свою статистику → сделал следующее видео лучше».</p>
+  <p>Система бесконечная: она идёт <b>блоками по 4 недели</b>. После каждого блока — итог и выбор следующей ветки навыков. Подходит всем, кто хочет учиться вместе: найдите 2–3 партнёров и обменивайтесь оценками.</p>
+  <div class="stats">
+    <div class="stat"><b id="sLevel">1</b><span>уровень</span></div>
+    <div class="stat"><b id="sXp">0</b><span>XP</span></div>
+    <div class="stat"><b id="sVideos">0</b><span>видео опубликовано</span></div>
+    <div class="stat"><b id="sBlock">1</b><span>блок</span></div>
+  </div>
+  <div class="progress-box">
+    <div class="progress-label">До следующего уровня: <span id="xpText">0 / 500 XP</span></div>
+    <div class="progress"><div id="xpBar"></div></div>
+  </div>
+  <p class="muted" style="margin-top:12px">XP даются за эксперименты, честную обратную связь и рост навыка. <b>Никогда — за лайки, просмотры или взаимные подписки.</b></p>
+</section>
+
+<section id="loop" class="card">
+  <h2>Игровой цикл</h2>
+  <ol class="loop">
+    <li>Обучение<small>Изучить</small></li>
+    <li>Практика<small>Гипотеза → Сделать</small></li>
+    <li>Обратная связь<small>Проверить</small></li>
+    <li>Измерение<small>Проверить</small></li>
+    <li>Улучшение<small>→ новый цикл</small></li>
+  </ol>
+  <p class="question">Вместо «сегодня надо снять вирусное видео» — вопрос:<br><b>«Какую неопределённость я сегодня уменьшу?»</b></p>
+  <p>Например: «Удерживает ли неожиданный вопрос в первые 3 секунды зрителей лучше, чем моё обычное начало?» Это проверяемая гипотеза. Даже если она не подтвердилась, вы получили знание, а не потеряли неделю.</p>
+  <h3>Правила честного измерения</h3>
+  <ul>
+    <li>Сравнивайте видео <b>только со своими прошлыми видео</b>, а не с чужими аккаунтами.</li>
+    <li><b>Никаких выводов по одному видео.</b> Сравнение со своей медианой появляется, когда у вас есть хотя бы 3 прошлых видео со статистикой.</li>
+    <li>Сопоставляйте четыре взгляда: самооценка, оценки участников, оценка ИИ (по желанию) и реальная статистика из TikTok Studio, которую вы вносите вручную.</li>
+    <li>Где смотреть статистику: <a href="https://support.tiktok.com/en/using-tiktok/creating-videos/creator-tools-on-tiktok" target="_blank" rel="noopener">TikTok Studio — справка TikTok</a> (раздел Analytics → Content: показатели отдельного видео).</li>
+  </ul>
+</section>
+
+<section id="block" class="card">
+  <h2>Текущий блок (4 недели)</h2>
+  <div id="blockBody"></div>
+</section>
+
+<section id="tree" class="card">
+  <h2>Дерево навыков</h2>
+  <p class="muted">В этой версии открыта первая ветка — «Захват внимания». Остальные ветки откроются в следующих блоках.</p>
+  <div class="tree" id="treeBox"></div>
+</section>
+
+<section id="missions">
+  <h2>Миссии ветки «Захват внимания»</h2>
+  <p class="muted">Миссия засчитывается, когда есть: гипотеза, ссылка на опубликованное видео, самооценка по всем критериям и запись «что улучшу». Статистика и оценки участников дают дополнительные XP.</p>
+  <div class="demo" style="margin-bottom:12px">
+    <b class="lbl">ПРАВИЛО ОБМЕНА: дай 3 оценки — получи 3.</b> В полной версии сайт будет сам подбирать вам троих участников и открывать их отзывы о вашем видео только после того, как вы оцените их видео. Для этого нужен сервер (аккаунты, база данных, модерация) — его пока нет.<br>
+    <b>Сейчас (статичная версия):</b> договоритесь с 2–3 партнёрами, обменяйтесь ссылками и впишите их оценки вручную. Отзывы, которые вы дали другим, записывайте в блок «Я помог участнику» — за честный отзыв тоже дают XP.
+  </div>
+  <div id="missionList"></div>
+</section>
+
+<section id="help" class="card">
+  <h2>Я помог участнику</h2>
+  <p class="muted">Записывайте отзывы, которые вы дали чужим видео по критериям миссии. +25 XP за отзыв, где есть и сильная сторона, и конкретное предложение.</p>
+  <form id="helpForm" class="form">
+    <div class="row">
+      <label>Дата<input type="date" name="date" required></label>
+      <label>Ссылка на видео участника<input type="url" name="url" placeholder="https://www.tiktok.com/..."></label>
+    </div>
+    <label>Что получилось хорошо<textarea name="good" rows="2" required></textarea></label>
+    <label>Одно конкретное улучшение<textarea name="fix" rows="2" required></textarea></label>
+    <button class="btn primary">Записать отзыв</button>
+  </form>
+  <ul id="helpList" class="entries"></ul>
+</section>
+
+<section id="ach" class="card">
+  <h2>Достижения</h2>
+  <div class="ach" id="achBox"></div>
+</section>
+
+<section id="modes" class="card">
+  <h2>Режим дня — по количеству сил</h2>
+  <p>Три режима, чтобы не пытаться ежедневно совершать подвиг. Выбери режим по силам:</p>
+  <div class="modes" id="modeBtns"></div>
+  <div id="modeBody" class="mode-body"></div>
+  <p class="rule">Главное правило: вечер заканчивается не тогда, когда кончились силы, а когда выполнена заранее определённая небольшая задача.</p>
+
+  <h3>Дневник</h3>
+  <form id="dayForm" class="form">
+    <div class="row">
+      <label>Дата<input type="date" name="date" required></label>
+      <label>Режим<select name="mode"></select></label>
+    </div>
+    <label>Небольшая задача на сегодня<input name="task" required placeholder="Одна конкретная задача"></label>
+    <label>Какую неопределённость уменьшил<textarea name="uncert" rows="2"></textarea></label>
+    <label class="check"><input type="checkbox" name="done"> Выполнено</label>
+    <button class="btn primary">Добавить запись</button>
+  </form>
+  <ul id="dayList" class="entries"></ul>
+</section>
+
+<section id="report" class="card">
+  <h2>Еженедельный отчёт</h2>
+  <p class="muted">Продвижение измеряется не только просмотрами. Раз в неделю — 4 вопроса. Отчёт удобно отправить партнёрам по обучению.</p>
+  <form id="repForm" class="form">
+    <label>Дата<input type="date" name="date" required></label>
+    <label>Чему я научился?<textarea name="q1" rows="2"></textarea></label>
+    <label>Что я проверил?<textarea name="q2" rows="2"></textarea></label>
+    <label>Что узнал о своих видео или зрителях?<textarea name="q3" rows="2"></textarea></label>
+    <label>Какой следующий шаг?<textarea name="q4" rows="2"></textarea></label>
+    <div class="row-btns">
+      <button class="btn primary">Сохранить отчёт</button>
+      <button type="button" class="btn" id="copyRep">Скопировать отчёт</button>
+    </div>
+  </form>
+  <ul id="repList" class="entries"></ul>
+</section>
+
+<section id="money" class="card">
+  <h2>Основы монетизации — без иллюзий</h2>
+  <p>Деньги — не цель первых блоков. Сначала — навык и регулярность. Но полезно знать официальные условия.</p>
+  <p>Официальная программа выплат TikTok — <b>Creator Rewards Program</b>. По данным TikTok, для участия нужно: возраст от 18 лет, не менее 10&nbsp;000 подписчиков и не менее 100&nbsp;000 просмотров видео за последние 30 дней, личный аккаунт без нарушений, проживание в стране, где программа доступна. Вознаграждение начисляется за оригинальные видео длиной от одной минуты.</p>
+  <p class="muted">Источники: <a href="https://newsroom.tiktok.com/en-us/introducing-the-new-creator-rewards-program" target="_blank" rel="noopener">TikTok Newsroom</a>, <a href="https://support.tiktok.com/en/business-and-creator/creator-rewards-program/creator-rewards-program" target="_blank" rel="noopener">справка TikTok — Creator Rewards Program</a>. Условия и список стран меняются — проверяйте по ссылке. Правила платформы: <a href="https://www.tiktok.com/community-guidelines/en" target="_blank" rel="noopener">Community Guidelines</a>.</p>
+</section>
+
+<section id="courses" class="card">
+  <h2>Честный обзор: готовые курсы или наша бесплатная система?</h2>
+  <div class="choice">
+    <div><b>Есть энергия, желание и деньги?</b><br>Присоединяйтесь к готовому платному курсу — там структура, кураторы и сертификат. Нашу систему можно использовать параллельно как тренажёр практики.</div>
+    <div><b>Нет денег или сил на большой курс?</b><br>Используйте нашу бесплатную систему + официальные бесплатные материалы TikTok. Главное — публиковать и честно измерять.</div>
+  </div>
+  <p class="muted" style="margin-top:12px">Принцип обзора: только факты со страниц самих курсов (проверено 19.10.2026). Мы не придумываем цены, рейтинги и отзывы. Если цена не проверена — написано «цена на сайте». Рейтинги и отзывы смотрите на странице курса.</p>
+
+  <h3>Бесплатные официальные ресурсы TikTok</h3>
+  <div class="course">
+    <h3>TikTok Creator Academy</h3>
+    <span class="tag">официально</span><span class="tag">для авторов</span><span class="tag">английский и др. языки</span>
+    <p>Официальная платформа TikTok для авторов: видеокурсы и статьи о том, как начать и расти в TikTok (в том числе об аналитике и LIVE).</p>
+    <p><b>Стоимость:</b> открытый доступ на сайте TikTok.</p>
+    <p><a href="https://www.tiktok.com/creator-academy/en/" target="_blank" rel="noopener">tiktok.com/creator-academy</a></p>
+  </div>
+  <div class="course">
+    <h3>TikTok Academy — путь «Create for TikTok»</h3>
+    <span class="tag">официально</span><span class="tag">больше для брендов и рекламы</span><span class="tag">английский</span>
+    <p>Обучающая площадка TikTok, ориентированная на маркетологов и бизнес. В пути «Create for TikTok» есть короткие уроки о креативе, в том числе «5 hooks to try in your next video» и советы по музыке и звукам.</p>
+    <p><b>Стоимость:</b> цена на сайте (требуется регистрация).</p>
+    <p><a href="https://www.tiktokacademy.com/student/path/2635022-create-for-tiktok" target="_blank" rel="noopener">tiktokacademy.com — Create for TikTok</a></p>
+  </div>
+
+  <h3>Платные и смешанные курсы</h3>
+  <div class="course">
+    <h3>Coursera — TikTok Content Creation Essentials</h3>
+    <span class="tag">английский</span><span class="tag">начальный уровень</span>
+    <p>По странице курса: 3 модуля, около 3 часов; сценарий, сторителлинг, мобильная съёмка, монтаж, хуки, трендовые звуки. Сертификат.</p>
+    <p><b>Стоимость:</b> цена на сайте.</p>
+    <p><a href="https://www.coursera.org/learn/tiktok-content-creation-essentials" target="_blank" rel="noopener">coursera.org/learn/tiktok-content-creation-essentials</a></p>
+  </div>
+  <div class="course">
+    <h3>Coursera — TikTok Content Creator Pro (специализация)</h3>
+    <span class="tag">английский</span><span class="tag">программа из 15 курсов</span>
+    <p>По странице: серия из 15 курсов — стратегия, съёмка, рост аудитории, аналитика, монетизация (TikTok Shop, LIVE, коллаборации с брендами).</p>
+    <p><b>Стоимость:</b> цена на сайте.</p>
+    <p><a href="https://www.coursera.org/specializations/tiktok-content-creator-pro" target="_blank" rel="noopener">coursera.org/specializations/tiktok-content-creator-pro</a></p>
+  </div>
+  <div class="course">
+    <h3>Coursera — Content Creation for TikTok, YouTube, Instagram, Facebook (Professional Certificate)</h3>
+    <span class="tag">английский</span><span class="tag">4 курса</span>
+    <p>По странице: серия из 4 курсов; курс «Creating Engaging Content for TikTok» — аккаунт, короткие истории, дуэты и стичи, LIVE, хэштеги, аналитика, монетизация.</p>
+    <p><b>Стоимость:</b> цена на сайте.</p>
+    <p><a href="https://www.coursera.org/professional-certificates/content-creation-tiktok-youtube-instagram-facebook" target="_blank" rel="noopener">coursera.org — Professional Certificate</a></p>
+  </div>
+  <div class="course">
+    <h3>Domestika — Introduction to TikTok for Creatives (That Icelandic Guy)</h3>
+    <span class="tag">английский, есть субтитры на других языках</span>
+    <p>По странице: 21 урок — имя и профиль, ниша, хорошие идеи, телефон или камера, съёмка и монтаж, звук и текст, описания и хэштеги, частота публикаций.</p>
+    <p><b>Стоимость:</b> цена на сайте.</p>
+    <p><a href="https://www.domestika.org/en/courses/2039-introduction-to-tiktok-for-creatives" target="_blank" rel="noopener">domestika.org — Introduction to TikTok for Creatives</a>. У того же автора: <a href="https://www.domestika.org/en/courses/3729-mobile-video-creation-for-tiktok-and-instagram" target="_blank" rel="noopener">Mobile Video Creation for TikTok and Instagram</a> (съёмка на телефон, CapCut, аналитика).</p>
+  </div>
+  <div class="course">
+    <h3>Domestika — TikTok Strategy for Beginners (Molly McGlew)</h3>
+    <span class="tag">английский</span>
+    <p>По странице: понимание алгоритма, стратегия контента и метрики для роста сообщества.</p>
+    <p><b>Стоимость:</b> цена на сайте.</p>
+    <p><a href="https://www.domestika.org/en/courses/3322-tiktok-strategy-for-beginners" target="_blank" rel="noopener">domestika.org — TikTok Strategy for Beginners</a></p>
+  </div>
+  <div class="course">
+    <h3>Skillbox — направление «TikTok»</h3>
+    <span class="tag">русский</span><span class="tag">SMM-курсы, а не только TikTok</span>
+    <p>На странице направления собраны SMM-программы («SMM-специалист с нуля», «SMM-стратегия», «Контент-менеджер в SMM + ИИ» и др.), где TikTok — одна из тем. Это скорее профессия SMM-специалиста, чем курс для автора.</p>
+    <p><b>Стоимость:</b> цена на сайте (на сайте указана рассрочка).</p>
+    <p><a href="https://skillbox.ru/courses/tiktok/" target="_blank" rel="noopener">skillbox.ru/courses/tiktok</a></p>
+  </div>
+  <div class="course">
+    <h3>Нетология — «Продвижение в TikTok»</h3>
+    <span class="tag">русский</span><span class="tag lock">запись закрыта</span>
+    <p>На странице курса сейчас написано «Такого курса сейчас нет» — записаться нельзя. Указываем, чтобы вы не тратили время на поиски.</p>
+    <p><a href="https://netology.ru/programs/prodvizheniye-v-tiktok" target="_blank" rel="noopener">netology.ru/programs/prodvizheniye-v-tiktok</a></p>
+  </div>
+  <p class="note">Сообщества: мы не нашли проверяемых данных о платных TikTok-сообществах, поэтому не советуем конкретные. Самое надёжное сообщество для старта — 2–3 человека, которые проходят эту систему вместе с вами.</p>
+</section>
+
+<section class="card closing">
+  <p>В этой системе даже неудачный эксперимент приносит результат в виде знаний. Если гипотеза не подтвердилась — вы не потеряли неделю вслепую, а получили основание изменить следующее видео.</p>
+  <p><b>Цель — стать человеком, который умеет систематически изучать, снимать, проверять и улучшать свои видео.</b></p>
+</section>
+
+<section class="card">
+  <h2>Данные</h2>
+  <p class="muted">Всё хранится только в этом браузере (localStorage). Экспортируйте файл, чтобы сделать резервную копию или перенести прогресс на другое устройство.</p>
+  <div class="row-btns">
+    <button class="btn" id="exportBtn">Экспорт JSON</button>
+    <label class="btn">Импорт JSON<input type="file" id="importFile" accept=".json,application/json" hidden></label>
+    <button class="btn danger" id="resetBtn">Сбросить всё</button>
+  </div>
+</section>
+</main>
+<div id="toast" class="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
